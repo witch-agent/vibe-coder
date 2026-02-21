@@ -402,6 +402,10 @@
 
     <script>
         let selectedStyle = 'hacker';
+        
+        // Worker URL - Replace with your deployed worker URL
+        // If not set, will use fallback templates
+        const WORKER_URL = ''; // e.g., 'https://vibe-coder-api.your-name.workers.dev'
 
         // Style selection
         document.querySelectorAll('.style-option').forEach(option => {
@@ -483,13 +487,36 @@ Raw, bold, industrial. Pure black (#000000) or pure white (#ffffff) background -
             document.getElementById('loading').classList.add('show');
             document.getElementById('output').classList.remove('show');
 
-            // Generate after delay
-            setTimeout(() => {
-                const spec = specGenerators[selectedStyle](prompt);
+            // Try API first, fallback to template
+            async function generateSpec() {
+                if (WORKER_URL) {
+                    try {
+                        const response = await fetch(WORKER_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ topic: prompt, style: selectedStyle })
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (data.result) {
+                                return data.result;
+                            }
+                        }
+                    } catch (e) {
+                        console.log('Worker not available, using fallback');
+                    }
+                }
+                
+                // Fallback to template
+                return specGenerators[selectedStyle](prompt);
+            }
+
+            generateSpec().then(spec => {
                 document.getElementById('outputContent').textContent = spec;
                 document.getElementById('loading').classList.remove('show');
                 document.getElementById('output').classList.add('show');
-            }, 2000);
+            });
         }
 
         function copyToClipboard() {
