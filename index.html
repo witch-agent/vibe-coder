@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Vibe Coder - Transform Ideas into Specs</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-secondary: #111111;
+            --text: #e0e0e0;
+            --text-muted: #666666;
+            --accent: #00ff88;
+            --accent-dim: rgba(0, 255, 136, 0.1);
+            --border: #222222;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: var(--text);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-dim);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .style-selector {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .style-option {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .style-option:hover {
+            border-color: var(--text-muted);
+        }
+
+        .style-option.active {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .style-option .emoji {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .style-option .name {
+            font-weight: 600;
+        }
+
+        .style-option .desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Generate Button */
+        .generate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent);
+            border: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--bg);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Output Section */
+        .output-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            display: none;
+        }
+
+        .output-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .output-header h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--accent);
+        }
+
+        .copy-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .output-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            color: var(--text);
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading-spinner {
+            font-size: 3rem;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Examples */
+        .examples {
+            margin-top: 4rem;
+        }
+
+        .examples h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .example-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .example-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .example-card .title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-card .desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .style-selector {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">⚡</div>
+            <h1>Vibe Coder</h1>
+            <p>Transform simple ideas into detailed, creative specifications</p>
+        </header>
+
+        <section class="input-section">
+            <div class="input-group">
+                <label>What do you want to build?</label>
+                <input type="text" id="prompt" placeholder="e.g., Health dashboard, Crypto tracker, Meditation app...">
+            </div>
+
+            <div class="input-group">
+                <label>Choose Your Vibe</label>
+                <div class="style-selector">
+                    <div class="style-option active" data-style="hacker">
+                        <div class="emoji">👨‍💻</div>
+                        <div class="name">Hacker Terminal</div>
+                        <div class="desc">Dark, electric, data-heavy</div>
+                    </div>
+                    <div class="style-option" data-style="neon">
+                        <div class="emoji">🌃</div>
+                        <div class="name">Neon Dreams</div>
+                        <div class="desc">Cyberpunk, glow, vibrant</div>
+                    </div>
+                    <div class="style-option" data-style="minimal">
+                        <div class="emoji">⬜</div>
+                        <div class="name">Minimal</div>
+                        <div class="desc">Clean, white, spacious</div>
+                    </div>
+                    <div class="style-option" data-style="brutalist">
+                        <div class="emoji">🧱</div>
+                        <div class="name">Brutalist</div>
+                        <div class="desc">Raw, bold, unapologetic</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="generate-btn" onclick="generate()">⚡ Generate Spec</button>
+        </section>
+
+        <div class="loading" id="loading">
+            <div class="loading-spinner">⚡</div>
+            <p>Channeling creative energy...</p>
+        </div>
+
+        <section class="output-section" id="output">
+            <div class="output-header">
+                <h3>📋 Your Vibe Spec</h3>
+                <button class="copy-btn" onclick="copyToClipboard()">📋 Copy</button>
+            </div>
+            <div class="output-content" id="outputContent"></div>
+        </section>
+
+        <section class="examples">
+            <h3>Try these examples</h3>
+            <div class="example-grid">
+                <div class="example-card" onclick="setPrompt('Fitness app home screen')">
+                    <div class="title">💪 Fitness App</div>
+                    <div class="desc">Mobile home screen for tracking workouts</div>
+                </div>
+                <div class="example-card" onclick="setPrompt('Crypto portfolio dashboard')">
+                    <div class="title">📊 Crypto Portfolio</div>
+                    <div class="desc">TrackDeFi positions across chains</div>
+                </div>
+                <div class="example-card" onclick="setPrompt('Meditation app')">
+                    <div class="title">🧘 Meditation App</div>
+                    <div class="desc">Calm, peaceful mindfulness interface</div>
+                </div>
+                <div class="example-card" onclick="setPrompt('Music player')">
+                    <div class="title">🎵 Music Player</div>
+                    <div class="desc">Sleek audio player interface</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>⚡ Built in silence. Create without limits.</p>
+        </footer>
+    </div>
+
+    <script>
+        let selectedStyle = 'hacker';
+
+        // Style selection
+        document.querySelectorAll('.style-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.style-option').forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                selectedStyle = option.dataset.style;
+            });
+        });
+
+        function setPrompt(prompt) {
+            document.getElementById('prompt').value = prompt;
+        }
+
+        // Spec templates for each style
+        const specTemplates = {
+            hacker: (topic) => `**${topic.toUpperCase()}**
+
+**Structure:**
+- Single ${topic.includes('app') ? 'mobile screen' : 'page'}, vertically scrollable
+- Data-dense, information-rich layout
+- Dark base (#0a0a0a) with monospace typography (JetBrains Mono)
+- Terminal/hacker aesthetic with real-time data feel
+
+**Layout sections:**
+1. Header: Compact status bar with key metrics
+2. Hero: Prominent ${topic} display with real-time stats
+3. Data grids: Multiple data tables with sparklines
+4. Quick actions: Command-style button row
+5. Footer: Minimal navigation
+
+**Color palette:**
+- Background: #0a0a0a (pure black)
+- Primary: #00ff88 (electric green)
+- Secondary: #ff3366 (alert red)
+- Text: #e0e0e0 (off-white)
+- Muted: #666666 (gray)
+
+**Typography:**
+- Font: JetBrains Mono, monospace
+- Numbers: Bold, oversized
+- Labels: Uppercase, letterspaced
+
+**Effects:**
+- Subtle glow on active elements
+- Data refresh animations
+- Terminal cursor blink effects
+
+**Vibe:** You are a hacker viewing classified intelligence.`,
+
+            neon: (topic) => `**${topic}**
+
+**Visual Style:**
+- Cyberpunk, neon-soaked aesthetic
+- Dark purple/black gradient background
+- Glowing elements everywhere
+- Futuristic, almost holographic feel
+
+**Structure:**
+1. Hero section with glowing ${topic} title
+2. Animated gradient backgrounds
+3. Card-based layout with neon borders
+4. Particle effects or floating elements
+5. Glitch text effects on hover
+
+**Color palette:**
+- Background: #0D0D1A (deep purple-black)
+- Primary: #00ffff (cyan)
+- Secondary: #ff00ff (magenta)
+- Accent: #ffff00 (yellow)
+- Glow effects throughout
+
+**Typography:**
+- Bold, futuristic sans-serif (Outfit, Orbitron)
+- All caps for headers
+- Gradient text on titles
+
+**Effects:**
+- Neon glow on all interactive elements
+- Gradient borders
+- Floating/particle animations
+- Pulse animations on key metrics
+
+**Vibe:** You are in 2077 Tokyo. Everything glows.`,
+
+            minimal: (topic) => `**${topic}**
+
+**Visual Style:**
+- Ultra-clean, spacious, breathable
+- Generous whitespace
+- Apple-esque simplicity
+- Photography-forward design
+
+**Structure:**
+1. Massive hero with just the essentials
+2. Single-column content flow
+3. Lots of breathing room between sections
+4. Hidden navigation (hamburger or minimal)
+5. Focus on content over chrome
+
+**Color palette:**
+- Background: #ffffff (pure white)
+- Primary: #000000 (pure black)
+- Secondary: #f5f5f5 (light gray)
+- Accent: #007AFF (iOS blue)
+- Text: #1a1a1a (near black)
+
+**Typography:**
+- San Francisco / Inter / System fonts
+- Light font weights
+- Large, readable sizes
+- Minimal hierarchy
+
+**Effects:**
+- Subtle shadows only
+- Smooth fade animations
+- No harsh contrasts
+- Focus on typography
+
+**Vibe:** You are Jonathan Ive. Less is more.`,
+
+            brutalist: (topic) => `**${topic}**
+
+**Visual Style:**
+- Raw, bold, unapologetic
+- Stark contrasts
+- Heavy typography
+- No gradients, no shadows, no roundness
+
+**Structure:**
+1. Full-width sections, no containers
+2. Massive typography
+3. Grid-based rigid layouts
+4. Exposed structure (visible borders)
+5. Industrial feel
+
+**Color palette:**
+- Background: #f5f5f5 (light gray) OR #000000 (black)
+- Primary: #000000 (black) OR #ffffff (white)
+- Accent: #ff3300 (aggressive red)
+- Borders: Thick, black, visible
+
+**Typography:**
+- Heavy weights (900)
+- All caps everywhere
+- Massive sizes
+- Helvetica / Archivo Black
+
+**Effects:**
+- Hard shadows only (no blur)
+- Thick borders (3-5px)
+- No animations except functional ones
+- High contrast everything
+
+**Vibe:** You are constructivist art. Form follows function. Bold or nothing.`
+        };
+
+        function generate() {
+            const prompt = document.getElementById('prompt').value.trim();
+            
+            if (!prompt) {
+                alert('Enter what you want to build!');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('output').classList.remove('show');
+
+            // Generate after delay
+            setTimeout(() => {
+                const spec = specTemplates[selectedStyle](prompt);
+                
+                // Add intro based on style
+                let intro = '';
+                if (selectedStyle === 'hacker') {
+                    intro = `// VIBE CODING SPEC\n// Generated by ⚡ Vibe Coder\n\n`;
+                } else if (selectedStyle === 'neon') {
+                    intro = `🌃 ${topic.toUpperCase()} - NEON DREAMS EDITION\n\n`;
+                } else if (selectedStyle === 'minimal') {
+                    intro = `# ${topic}\n\n`;
+                } else {
+                    intro = `## ${topic.toUpperCase()}\n\n`;
+                }
+
+                const topic = prompt;
+                let finalSpec = spec;
+                if (selectedStyle !== 'hacker') {
+                    finalSpec = intro.replace('topic', topic) + spec;
+                }
+
+                document.getElementById('outputContent').textContent = finalSpec;
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('output').classList.add('show');
+            }, 1500);
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('outputContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy';
+                }, 2000);
+            });
+        }
+
+        // Enter key support
+        document.getElementById('prompt').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generate();
+            }
+        });
+    </script>
+</body>
+</html>
