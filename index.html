@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ Vibe Coder - Transform Ideas into Specs</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Vibe Coder - Transform Ideas into Specs</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,27 +13,28 @@
         }
 
         :root {
-            --bg: #0a0a0a;
-            --bg-secondary: #111111;
-            --text: #e0e0e0;
-            --text-muted: #666666;
-            --accent: #00ff88;
-            --accent-dim: rgba(0, 255, 136, 0.1);
-            --border: #222222;
+            --bg: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --text: #f0f0f0;
+            --text-dim: #888888;
+            --accent: #e0e0e0;
+            --accent-glow: rgba(255, 255, 255, 0.1);
+            --border: #1a1a1a;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
         }
 
         /* Header */
@@ -43,88 +44,77 @@
         }
 
         .logo {
-            font-size: 3rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.02); }
+            letter-spacing: -0.02em;
         }
 
         header h1 {
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -0.03em;
         }
 
         header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            color: var(--text-dim);
+            font-size: 1rem;
         }
 
         /* Input Section */
         .input-section {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 2rem;
             margin-bottom: 2rem;
         }
 
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         label {
             display: block;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            font-weight: 500;
         }
 
-        input[type="text"], textarea {
+        input[type="text"] {
             width: 100%;
             background: var(--bg);
             border: 1px solid var(--border);
-            padding: 1rem 1.5rem;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
+            padding: 1.25rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
             color: var(--text);
             border-radius: 8px;
             transition: all 0.3s;
         }
 
-        input[type="text"]:focus, textarea:focus {
+        input[type="text"]:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 20px var(--accent-dim);
+            border-color: var(--text-dim);
+            background: var(--bg-tertiary);
         }
 
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
+        /* Style Selector */
         .style-selector {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
         }
 
         .style-option {
-            flex: 1;
-            min-width: 150px;
-            padding: 1rem;
+            padding: 1.25rem 1rem;
             background: var(--bg);
-            border: 2px solid var(--border);
+            border: 1px solid var(--border);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
@@ -132,37 +122,34 @@
         }
 
         .style-option:hover {
-            border-color: var(--text-muted);
+            border-color: var(--text-dim);
         }
 
         .style-option.active {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-        }
-
-        .style-option .emoji {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            border-color: var(--text);
+            background: var(--bg-tertiary);
         }
 
         .style-option .name {
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .style-option .desc {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.25rem;
         }
 
         /* Generate Button */
         .generate-btn {
             width: 100%;
-            padding: 1.2rem;
-            background: var(--accent);
+            padding: 1.25rem;
+            background: var(--text);
             border: none;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            font-weight: 500;
             color: var(--bg);
             cursor: pointer;
             border-radius: 8px;
@@ -172,8 +159,7 @@
         }
 
         .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            transform: translateY(-1px);
         }
 
         .generate-btn:disabled {
@@ -185,18 +171,19 @@
         .output-section {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 2rem;
             display: none;
+            margin-bottom: 3rem;
         }
 
         .output-section.show {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -211,33 +198,34 @@
 
         .output-header h3 {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            color: var(--accent);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-weight: 400;
         }
 
         .copy-btn {
             padding: 0.5rem 1rem;
             background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             border-radius: 4px;
             transition: all 0.3s;
         }
 
         .copy-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
+            border-color: var(--text);
+            color: var(--text);
         }
 
         .output-content {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            line-height: 1.8;
+            font-size: 0.85rem;
+            line-height: 1.7;
             white-space: pre-wrap;
-            color: var(--text);
+            color: var(--text-dim);
         }
 
         /* Loading */
@@ -251,74 +239,83 @@
             display: block;
         }
 
-        .loading-spinner {
-            font-size: 3rem;
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .loading p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 1rem;
         }
 
         /* Examples */
         .examples {
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
 
         .examples h3 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
         }
 
         .example-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
         }
 
         .example-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .example-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
+            border-color: var(--text-dim);
         }
 
         .example-card .title {
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
         }
 
         .example-card .desc {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            font-size: 0.7rem;
+            color: var(--text-dim);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 0;
-            color: var(--text-muted);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        footer p {
             font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .credit {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
         }
 
         @media (max-width: 600px) {
+            .style-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .example-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
             header h1 {
                 font-size: 1.8rem;
-            }
-            .style-selector {
-                flex-direction: column;
             }
         }
     </style>
@@ -326,83 +323,80 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">⚡</div>
+            <div class="logo">&lt;/&gt;</div>
             <h1>Vibe Coder</h1>
-            <p>Transform simple ideas into detailed, creative specifications</p>
+            <p>Transform simple ideas into detailed creative specifications</p>
         </header>
 
         <section class="input-section">
             <div class="input-group">
                 <label>What do you want to build?</label>
-                <input type="text" id="prompt" placeholder="e.g., Health dashboard, Crypto tracker, Meditation app...">
+                <input type="text" id="prompt" placeholder="e.g. health dashboard, crypto tracker, meditation app...">
             </div>
 
             <div class="input-group">
                 <label>Choose Your Vibe</label>
                 <div class="style-selector">
                     <div class="style-option active" data-style="hacker">
-                        <div class="emoji">👨‍💻</div>
-                        <div class="name">Hacker Terminal</div>
-                        <div class="desc">Dark, electric, data-heavy</div>
+                        <div class="name">Terminal</div>
+                        <div class="desc">Data-dense, dark</div>
                     </div>
                     <div class="style-option" data-style="neon">
-                        <div class="emoji">🌃</div>
-                        <div class="name">Neon Dreams</div>
-                        <div class="desc">Cyberpunk, glow, vibrant</div>
+                        <div class="name">Neon</div>
+                        <div class="desc">Glow, cyberpunk</div>
                     </div>
                     <div class="style-option" data-style="minimal">
-                        <div class="emoji">⬜</div>
                         <div class="name">Minimal</div>
-                        <div class="desc">Clean, white, spacious</div>
+                        <div class="desc">Clean, spacious</div>
                     </div>
                     <div class="style-option" data-style="brutalist">
-                        <div class="emoji">🧱</div>
                         <div class="name">Brutalist</div>
-                        <div class="desc">Raw, bold, unapologetic</div>
+                        <div class="desc">Raw, bold</div>
                     </div>
                 </div>
             </div>
 
-            <button class="generate-btn" onclick="generate()">⚡ Generate Spec</button>
+            <button class="generate-btn" onclick="generate()">Generate Spec</button>
         </section>
 
         <div class="loading" id="loading">
-            <div class="loading-spinner">⚡</div>
+            <div style="font-size: 2rem;">*</div>
             <p>Channeling creative energy...</p>
         </div>
 
         <section class="output-section" id="output">
             <div class="output-header">
-                <h3>📋 Your Vibe Spec</h3>
-                <button class="copy-btn" onclick="copyToClipboard()">📋 Copy</button>
+                <h3>YOUR VIBE SPEC</h3>
+                <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
             </div>
             <div class="output-content" id="outputContent"></div>
         </section>
 
         <section class="examples">
-            <h3>Try these examples</h3>
+            <h3>Try These</h3>
             <div class="example-grid">
-                <div class="example-card" onclick="setPrompt('Fitness app home screen')">
-                    <div class="title">💪 Fitness App</div>
-                    <div class="desc">Mobile home screen for tracking workouts</div>
+                <div class="example-card" onclick="setPrompt('fitness app home screen')">
+                    <div class="title">Fitness App</div>
+                    <div class="desc">Mobile workout tracker</div>
                 </div>
-                <div class="example-card" onclick="setPrompt('Crypto portfolio dashboard')">
-                    <div class="title">📊 Crypto Portfolio</div>
-                    <div class="desc">TrackDeFi positions across chains</div>
+                <div class="example-card" onclick="setPrompt('crypto portfolio dashboard')">
+                    <div class="title">Crypto Portfolio</div>
+                    <div class="desc">DeFi positions tracker</div>
                 </div>
-                <div class="example-card" onclick="setPrompt('Meditation app')">
-                    <div class="title">🧘 Meditation App</div>
-                    <div class="desc">Calm, peaceful mindfulness interface</div>
+                <div class="example-card" onclick="setPrompt('meditation app')">
+                    <div class="title">Meditation</div>
+                    <div class="desc">Mindfulness interface</div>
                 </div>
-                <div class="example-card" onclick="setPrompt('Music player')">
-                    <div class="title">🎵 Music Player</div>
-                    <div class="desc">Sleek audio player interface</div>
+                <div class="example-card" onclick="setPrompt('music player')">
+                    <div class="title">Music Player</div>
+                    <div class="desc">Audio streaming UI</div>
                 </div>
             </div>
         </section>
 
         <footer>
-            <p>⚡ Built in silence. Create without limits.</p>
+            <p>Built in silence.</p>
+            <p class="credit">by witch-agent</p>
         </footer>
     </div>
 
@@ -422,147 +416,59 @@
             document.getElementById('prompt').value = prompt;
         }
 
-        // Spec templates for each style
-        const specTemplates = {
-            hacker: (topic) => `**${topic.toUpperCase()}**
+        // Enhanced spec generation
+        const specGenerators = {
+            hacker: (topic) => {
+                const caps = topic.toUpperCase();
+                return `${caps}
 
-**Structure:**
-- Single ${topic.includes('app') ? 'mobile screen' : 'page'}, vertically scrollable
-- Data-dense, information-rich layout
-- Dark base (#0a0a0a) with monospace typography (JetBrains Mono)
-- Terminal/hacker aesthetic with real-time data feel
+Single scrollable mobile screen.
 
-**Layout sections:**
-1. Header: Compact status bar with key metrics
-2. Hero: Prominent ${topic} display with real-time stats
-3. Data grids: Multiple data tables with sparklines
-4. Quick actions: Command-style button row
-5. Footer: Minimal navigation
+STRUCTURE, TOP TO BOTTOM:
+A minimal header with the app name in monospace and a settings icon. A hero section displaying the ${topic} in its most essential form - a single dominant number or metric that represents the core value. A quick stats row with 3-4 key metrics in a horizontal scrollable format, each showing a label in small caps and a large value below. A main content area dedicated to ${topic} - this is where the core functionality lives, rendered as cleanly as possible. An action row at the bottom with 2-3 primary actions as simple text buttons without borders or backgrounds.
 
-**Color palette:**
-- Background: #0a0a0a (pure black)
-- Primary: #00ff88 (electric green)
-- Secondary: #ff3366 (alert red)
-- Text: #e0e0e0 (off-white)
-- Muted: #666666 (gray)
+STYLE:
+Dark, electric, and unapologetically bold. A deep true-black base (#050505) with no warmth - pure void. Monochromatic palette: pure white (#ffffff) for primary numbers and headlines, mid-gray (#666666) for labels and secondary text, and dark charcoal (#0a0a0a) for card surfaces. Cards sit on the dark base with faint 1px borders in rgba(255,255,255,0.08) - no shadows, no gradients, depth comes from brightness alone. Rounded corners at 8px. Typography uses JetBrains Mono - labels are small uppercase and letterspaced in gray, stat numbers are oversized bold with units sitting smaller and lighter beside them. Progress indicators use white fills against dark tracks. Everything feels like classified intelligence you'd see in a secure facility.`;
+            },
 
-**Typography:**
-- Font: JetBrains Mono, monospace
-- Numbers: Bold, oversized
-- Labels: Uppercase, letterspaced
+            neon: (topic) => {
+                const caps = topic.toUpperCase();
+                return `${caps}
 
-**Effects:**
-- Subtle glow on active elements
-- Data refresh animations
-- Terminal cursor blink effects
+Single scrollable mobile screen.
 
-**Vibe:** You are a hacker viewing classified intelligence.`,
+STRUCTURE, TOP TO BOTTOM:
+A greeting header showing the current context or time in bold. A prominent hero section featuring the ${topic} with a subtle gradient glow behind it. A card-based layout where each card has a thin neon border that pulses softly. Data is presented in bold numbers with small trend arrows. An interactive section where users can engage with ${topic} directly - swipe, tap, or scroll through options. A bottom navigation bar with 4-5 tabs, each icon glowing in the active state.
 
-            neon: (topic) => `**${topic}**
+STYLE:
+Cyberpunk, neon-soaked aesthetic. Background is a deep purple-black (#0D0D1A) with gradient accents. One single accent color owns the entire identity: electric cyan (#00ffff) used for progress fills, active states, and primary elements. It shows up confident and loud. Secondary color: magenta (#ff00ff) for variety. Everything else is grayscale: white for primary numbers, gray (#888888) for labels. Cards have glowing borders that shift between cyan and magenta. Rounded corners at 16px with generous padding. Typography uses Space Grotesk or similar geometric sans - numbers are bold and oversized. Effects include subtle glow on active elements, gradient borders, and smooth transitions. The app feels like you're in 2077 Tokyo - everything glows, everything is alive.`;
+            },
 
-**Visual Style:**
-- Cyberpunk, neon-soaked aesthetic
-- Dark purple/black gradient background
-- Glowing elements everywhere
-- Futuristic, almost holographic feel
+            minimal: (topic) => {
+                const caps = topic.toUpperCase();
+                return `${caps}
 
-**Structure:**
-1. Hero section with glowing ${topic} title
-2. Animated gradient backgrounds
-3. Card-based layout with neon borders
-4. Particle effects or floating elements
-5. Glitch text effects on hover
+Single scrollable mobile screen.
 
-**Color palette:**
-- Background: #0D0D1A (deep purple-black)
-- Primary: #00ffff (cyan)
-- Secondary: #ff00ff (magenta)
-- Accent: #ffff00 (yellow)
-- Glow effects throughout
+STRUCTURE, TOP TO BOTTOM:
+A massive hero section with just ${topic} displayed elegantly - the simplest possible representation. A content flow that follows naturally - single column, lots of breathing room between sections. No visible chrome or navigation until you need it. Each piece of content gets full attention through generous whitespace. A minimal floating action button or hidden menu for additional actions.
 
-**Typography:**
-- Bold, futuristic sans-serif (Outfit, Orbitron)
-- All caps for headers
-- Gradient text on titles
+STYLE:
+Ultra-clean, Apple-esque simplicity. Pure white background (#ffffff) or extremely light gray (#fafafa). Pure black (#000000) for primary text, medium gray (#6b6b6b) for secondary. One accent color - iOS blue (#007AFF) or black - used very sparingly. No shadows except very subtle, diffuse ones. No borders, no dividers except maybe very faint lines. Rounded corners at 20-24px - extremely smooth. Typography is everything: San Francisco or Inter, light to regular weights, large readable sizes with tight leading. The interface should feel like it was designed by Jonathan Ive - what you see is effortless, but every pixel is considered. Less is more.`;
+            },
 
-**Effects:**
-- Neon glow on all interactive elements
-- Gradient borders
-- Floating/particle animations
-- Pulse animations on key metrics
+            brutalist: (topic) => {
+                const caps = topic.toUpperCase();
+                return `${caps}
 
-**Vibe:** You are in 2077 Tokyo. Everything glows.`,
+Single scrollable mobile screen.
 
-            minimal: (topic) => `**${topic}**
+STRUCTURE, TOP TO BOTTOM:
+Full-width sections, no containers or padding that softens the edges. The ${topic} is displayed raw and unapologetic - massive typography that fills the screen. A rigid grid layout where everything has its place and you can see the structure. No hidden navigation - everything is exposed. Multiple call-to-action buttons that are large, blocky, and impossible to miss. The information density is high but organized in a grid that makes sense.
 
-**Visual Style:**
-- Ultra-clean, spacious, breathable
-- Generous whitespace
-- Apple-esque simplicity
-- Photography-forward design
-
-**Structure:**
-1. Massive hero with just the essentials
-2. Single-column content flow
-3. Lots of breathing room between sections
-4. Hidden navigation (hamburger or minimal)
-5. Focus on content over chrome
-
-**Color palette:**
-- Background: #ffffff (pure white)
-- Primary: #000000 (pure black)
-- Secondary: #f5f5f5 (light gray)
-- Accent: #007AFF (iOS blue)
-- Text: #1a1a1a (near black)
-
-**Typography:**
-- San Francisco / Inter / System fonts
-- Light font weights
-- Large, readable sizes
-- Minimal hierarchy
-
-**Effects:**
-- Subtle shadows only
-- Smooth fade animations
-- No harsh contrasts
-- Focus on typography
-
-**Vibe:** You are Jonathan Ive. Less is more.`,
-
-            brutalist: (topic) => `**${topic}**
-
-**Visual Style:**
-- Raw, bold, unapologetic
-- Stark contrasts
-- Heavy typography
-- No gradients, no shadows, no roundness
-
-**Structure:**
-1. Full-width sections, no containers
-2. Massive typography
-3. Grid-based rigid layouts
-4. Exposed structure (visible borders)
-5. Industrial feel
-
-**Color palette:**
-- Background: #f5f5f5 (light gray) OR #000000 (black)
-- Primary: #000000 (black) OR #ffffff (white)
-- Accent: #ff3300 (aggressive red)
-- Borders: Thick, black, visible
-
-**Typography:**
-- Heavy weights (900)
-- All caps everywhere
-- Massive sizes
-- Helvetica / Archivo Black
-
-**Effects:**
-- Hard shadows only (no blur)
-- Thick borders (3-5px)
-- No animations except functional ones
-- High contrast everything
-
-**Vibe:** You are constructivist art. Form follows function. Bold or nothing.`
+STYLE:
+Raw, bold, industrial. Pure black (#000000) or pure white (#ffffff) background - no grays, no gradients. Opposite for text. One aggressive accent color: red (#ff3300) or yellow (#ffff00). Thick borders everywhere - 3-5px solid lines that show the structure. No rounded corners - everything is square, sharp edges. Typography is heavy (900 weight), all caps for headers, absolutely massive sizes. Helvetica, Arial Black, or similar - no subtlety. Hard drop shadows only (no blur). The interface should feel like constructivist art - bold or nothing.`;
+            }
         };
 
         function generate() {
@@ -579,39 +485,20 @@
 
             // Generate after delay
             setTimeout(() => {
-                const spec = specTemplates[selectedStyle](prompt);
-                
-                // Add intro based on style
-                let intro = '';
-                if (selectedStyle === 'hacker') {
-                    intro = `// VIBE CODING SPEC\n// Generated by ⚡ Vibe Coder\n\n`;
-                } else if (selectedStyle === 'neon') {
-                    intro = `🌃 ${topic.toUpperCase()} - NEON DREAMS EDITION\n\n`;
-                } else if (selectedStyle === 'minimal') {
-                    intro = `# ${topic}\n\n`;
-                } else {
-                    intro = `## ${topic.toUpperCase()}\n\n`;
-                }
-
-                const topic = prompt;
-                let finalSpec = spec;
-                if (selectedStyle !== 'hacker') {
-                    finalSpec = intro.replace('topic', topic) + spec;
-                }
-
-                document.getElementById('outputContent').textContent = finalSpec;
+                const spec = specGenerators[selectedStyle](prompt);
+                document.getElementById('outputContent').textContent = spec;
                 document.getElementById('loading').classList.remove('show');
                 document.getElementById('output').classList.add('show');
-            }, 1500);
+            }, 2000);
         }
 
         function copyToClipboard() {
             const content = document.getElementById('outputContent').textContent;
             navigator.clipboard.writeText(content).then(() => {
                 const btn = document.querySelector('.copy-btn');
-                btn.textContent = '✅ Copied!';
+                btn.textContent = 'Copied';
                 setTimeout(() => {
-                    btn.textContent = '📋 Copy';
+                    btn.textContent = 'Copy';
                 }, 2000);
             });
         }
