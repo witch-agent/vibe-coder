@@ -1,6 +1,7 @@
 name = "vibe-coder-api"
 main = "index.js"
 compatibility_date = "2024-01-01"
+account_id = "bd89f902f828a0f2b37ab7ddb1fd9ee7"
 
 [vars]
 ENV = "production"
