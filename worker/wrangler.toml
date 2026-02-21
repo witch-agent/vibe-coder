@@ -5,3 +5,6 @@ account_id = "bd89f902f828a0f2b37ab7ddb1fd9ee7"
 
 [vars]
 ENV = "production"
+
+[[secrets]]
+name = "MINIMAX_API_KEY"

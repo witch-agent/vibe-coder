@@ -3,10 +3,10 @@
  */
 
 addEventListener("fetch", event => {
-  event.respondWith(handleRequest(event.request))
+  event.respondWith(handleRequest(event.request, event.env))
 });
 
-async function handleRequest(request) {
+async function handleRequest(request, env) {
   // CORS headers
   const corsHeaders = {
     'Access-Control-Allow-Origin': 'https://witch-agent.github.io',
@@ -28,10 +28,10 @@ async function handleRequest(request) {
   }
 
   try {
-    // Get API key from environment (set via: wrangler secret put MINIMAX_API_KEY)
-    const apiKey = MINIMAX_API_KEY;
+    // Get API key from environment
+    const apiKey = env?.MINIMAX_API_KEY;
     if (!apiKey) {
-      return new Response(JSON.stringify({ error: 'Server configuration error' }), {
+      return new Response(JSON.stringify({ error: 'Server configuration error - no API key' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
